@@ -26,6 +26,6 @@
 
 # Seccomp (Secure Computing Mode) in Docker
 
-<Seccomp (Secure Computing Mode) is a Linux kernel feature that restricts a container's ability to make system calls (syscalls) to the host kernel. Docker uses Seccomp to limit the attack surface by blocking unnecessary or dangerous syscalls.
+> Seccomp (Secure Computing Mode) is a Linux kernel feature that restricts a container's ability to make system calls (syscalls) to the host kernel. Docker uses Seccomp to limit the attack surface by blocking unnecessary or dangerous syscalls.
    
   
