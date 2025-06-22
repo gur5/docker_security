@@ -74,6 +74,7 @@ strace chown root /tmp/file.sh # no error
 # Linux Capabilities
 > Linux capabilities provide granular control over the privileges available to processes, offering a more fine-grained approach than the traditional "root or non-root" binary model. Docker allows you to manage these capabilities for containers.
 
+> https://dockerlabs.collabnix.com/advanced/security/capabilities/
 ```
 docker  run -it  --name new-container alpine sh
 
