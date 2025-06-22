@@ -118,7 +118,32 @@ capsh --print # show only chown capability in cureent
 
 ```
 
+#  Docker Content Trust (DCT)
 
+> Docker Content Trust (DCT) is a security feature that rovides cryptographic verification of the integrity and publisher of Docker images. It implements "The Update Framework" (TUF) to ensure you're running trusted content.
 
+### Key Concepts
 
+1.	Digital Signing: Images are signed by publishers
+2.	Verification: Docker verifies signatures before running images
+3.	Trust Pinning: Allows you to specify which publishers to trust
 
+> https://docs.docker.com/engine/security/trust/
+
+> https://www.geeksforgeeks.org/how-to-use-docker-content-trust-to-verify-docker-container-images/
+
+```
+docker pull nginx
+docker ps
+export DOCKER_CONTENT_TRUST=1 # only signed images pulled 
+echo $DOCKER_CONTENT_TRUST
+docker trust	key generate mykey # key pair generate named mykey.pub
+dockerhub login
+docker login -u <uaername>
+docker tag nginx:latest gur/nginx:latest
+docker push gur/nginx:latest
+docker search gur
+docker trust inspect –pretty <image_name(gur/nginx:latest)> # if image signed show repository key and root key 
+export DOCKER_CONTENT_TRUST=0 # for unsigned
+
+```
