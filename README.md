@@ -48,11 +48,22 @@
 }
 
 ```
-        docker run -it --name my-container --security-opt seccomp=seccomp-profile.json alpine sh
+```
+docker run -it --name my-container --security-opt seccomp=seccomp-profile.json alpine sh
         
-        cat /etc/os-release 
+cat /etc/os-release 
 
-        touch /tmp/file.sh
-        ls -lh /tmp
-        chmod 400 /tmp/file.txt # operation not permitted bcos we have already permition denied  chmod cmd 
+touch /tmp/file.sh
+ls -lh /tmp
+chmod 400 /tmp/file.txt # operation not permitted bcos we have already permition denied  chmod cmd
+
+chown nobody /tmp/file.sh
+ls -lh /tmp # owner change root to nobody
+apk add strace # install strace cmd
+
+strace chmod 400 /tmp/file.sh  # operation not permitted bcos we have already permition denied  chmod cmd
+
+
+strace chown root /tmp/file.sh # no error 
   
+```
