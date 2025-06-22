@@ -28,6 +28,9 @@
 
 > Seccomp (Secure Computing Mode) is a Linux kernel feature that restricts a container's ability to make system calls (syscalls) to the host kernel. Docker uses Seccomp to limit the attack surface by blocking unnecessary or dangerous syscalls.
 
+> https://docs.docker.com/engine/security/seccomp/
+> https://kubernetes.io/docs/tutorials/security/seccomp/ # for k8s  
+
        docker info # check seccomp configuration
         vi seccomp-profile.json
 ```
@@ -67,3 +70,53 @@ strace chmod 400 /tmp/file.sh  # operation not permitted bcos we have already pe
 strace chown root /tmp/file.sh # no error 
   
 ```
+# Linux Capabilities
+> Linux capabilities provide granular control over the privileges available to processes, offering a more fine-grained approach than the traditional "root or non-root" binary model. Docker allows you to manage these capabilities for containers.
+
+```
+docker  run -it  --name new-container alpine sh
+
+apk add -U libcap # install capsh cmd
+
+capsh --print
+```
+```
+echo "this is a file" > /tmp/nwefile.txt
+
+ls -lh /tmp/newfile.txt
+
+chown nobody /tmp/newfile.txt
+```
+```
+docker run -itd --cap-drop CHOWN  alpine
+docker ps
+docker exec -it <conatiner_name> sh
+
+apk add -U libcap # install capsh cmd
+
+capsh --print
+
+echo "hi" > /tmp/file.txt
+ls -lh /tmp/
+chown nobody /tmp/file.txt #  Operation not permitted bcos we have already  denied capabilities chowm cmd
+```
+```
+docker stop $(docker ps -aq)
+
+```
+```
+docker run -itd --cap-drop ALL --cap-add chown alpine # drop all capabilities excpt chown
+
+docker ps
+
+docker exec -it <container_name> sh
+apk add -U libcap # install capsh cmd
+
+capsh --print # show only chown capability in cureent 
+
+```
+
+
+
+
+
